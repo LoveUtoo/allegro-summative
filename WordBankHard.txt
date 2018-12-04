@@ -1,17 +1,31 @@
-AbsoluteMagnitude
-Antimatter
-ApparentMagnitude
-Astrochemistry
-CepheidVariable
-CircumpolarStar
-ElectromagneticSpectrum
+Neil Degrasse Tyson
+Interstellar
+Quarter moom
+Astrological
+Constellation
+Astronomer
+Neutron Stars
+Vernal Equinox
+Observatory
+Cosmonaut
+Andromeda Galaxy
+Magnetars
+Nuclear Fusion
+Magnetic Field
+Alpha Centauri
+Electromagnetic Radiation
+Astrophysics
+Astronomical
+Chromosphere
+Elliptical Galaxy
 Extraterrestrial
-GalacticNucleus
-GeosynchronousOrbit
-HydrostaticEquilibrium
-InterplanetaryMagneticField
-LagrangePoint
-MolecularCloud
-NewtonsSecondLawofMotion
-Planetesimal
-Protoplanetary Disk
+Quadrature
+Retrograde Motion
+Spectrometer
+Gravitional Pull
+Globular Cluster
+Aurora Australis
+Absolute Magnitude
+Astrochemistry
+Sagittarius
+
