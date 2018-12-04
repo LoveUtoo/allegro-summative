@@ -4,9 +4,9 @@ const int SCREEN_H = 480;       // screen height
 //Define structs
 stuct WordBank {
     //characters you have typed so far
-    char hotbar [20];
+    char hotbar [30];
     //words on screen
-    char astWords [20][20];
+    char astWords [30][20];
 };
 
 void checkDeath (int a);
