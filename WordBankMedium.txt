@@ -1,1 +1,11 @@
+Quasar
+Supernova
+PlanetaryNebula
+RedDwarf
+BlueGiant
+NeutronStar
+Nebula
+Galileo
+Keppler
+Copernicus
 
