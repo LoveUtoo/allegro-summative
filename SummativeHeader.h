@@ -13,4 +13,6 @@ stuct WordBank {
 void checkDeath();
 void printDeathscreen();
 void generateWord();
-
+void deleteWord();
+void printTitleScreen();
+void startGame();
