@@ -6,9 +6,11 @@ stuct WordBank {
     //characters you have typed so far
     char hotbar [30];
     //words on screen
-    char astWords [30][20];
+    char OnscreenWords [30][20];
+    char OffscreenWords [30][100];
 };
 
-void checkDeath (int a);
-void printDeathscreen (int a);
+void checkDeath();
+void printDeathscreen();
+void generateWord();
 
