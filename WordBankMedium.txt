@@ -1,11 +1,33 @@
 Quasar
 Supernova
-PlanetaryNebula
-RedDwarf
-BlueGiant
-NeutronStar
+Planetary Nebula
+Red Dwarf
+Blue Giant
 Nebula
 Galileo
 Keppler
 Copernicus
+Oort cloud
+Voyager one
+Dark matter
+Asteroid Belt
+Gas Giant
+Big Bang
+Gamma Ray
+Eclipse
+Equinox
+Zodiac
+Meteor Shower
+Auralion Sol
+Parsec
+Photosphere
+Plasma
+Protostar
+Satellite
+Rotation
+Solar Flare
+White Dwarf
+Wavelength
+
+
 
