@@ -19,8 +19,16 @@
 #include "SummativeHeader"
 
 int main(int argc, char *argv[]) {
-  
-  
+    //initialize Allegro
+    initializeAllegro();
+    
+    //declare and initialize display and font, and check they have been setup properly
+    ALLEGRO_DISPLAY *display = al_create_display(SCREEN_W, SCREEN_H);
+    ALLEGRO_FONT *font = al_load_ttf_font("SF_Cartoonist_Hand.ttf", 36, 0);
+    checkSetup(display, font);
+
+    //set window title
+	al_set_window_title(display, "Space-Word Blaster");
   
   
   
