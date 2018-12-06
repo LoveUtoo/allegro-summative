@@ -11,6 +11,8 @@ stuct WordBank {
 };
 
 struct Stats {
+    //number of astroids created (counter)
+    int created
     //number of asteroids destroyed
     int destroyed;
     //duration of time alive
