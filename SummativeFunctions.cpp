@@ -6,6 +6,9 @@
 #include "SummativeHeader.h"
 
 void printTitleScreen() {
+    int difficulty = 0;
+    WordBank game;
+    Stats player;
   
   
 }
