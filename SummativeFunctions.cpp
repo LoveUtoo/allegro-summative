@@ -4,3 +4,16 @@
 #include <allegro5/allegro_ttf.h>               // For allegro, must be in compiler search path.
 #include <allegro5/allegro_native_dialog.h> 		// for message box
 #include "SummativeHeader.h"
+
+void printTitleScreen() {
+  
+  
+}
+
+void startGame() {
+  
+}
+
+void printDeathScreen() {
+  
+}
