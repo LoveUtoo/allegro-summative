@@ -21,6 +21,8 @@ struct Stats {
     int score;
 }
 
+//general functions
+int readFile(WordBank w[], int &counter);
 void checkDeath();
 void printDeathscreen();
 void generateWord();
@@ -29,3 +31,7 @@ void printTitleScreen();
 void startGame();
 int wordPerMin(int a, int b);
 int scoreDeterminer(char a[30]);
+
+//allegro functions
+void initializeAllegro();
+int checkSetup(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font);
