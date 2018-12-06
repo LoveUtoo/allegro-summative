@@ -29,6 +29,17 @@ int main(int argc, char *argv[]) {
 
     //set window title
 	al_set_window_title(display, "Space-Word Blaster");
+	
+	//prints title screen
+	printTitleScreen();
+	
+	//starts the game
+	startGame();
+	
+	//ends the game
+	printDeathScreen();
+	
+	return 0;
   
   
   
