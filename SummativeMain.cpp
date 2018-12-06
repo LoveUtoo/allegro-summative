@@ -19,7 +19,7 @@
 #include "SummativeHeader.h"
 
 int main(int argc, char *argv[]) {
-    //initialize Allegro
+   	//initialize Allegro
     initializeAllegro();
     
     //declare and initialize display and font, and check they have been setup properly
