@@ -10,9 +10,22 @@ stuct WordBank {
     char OffscreenWords [30][100];
 };
 
+struct Stats {
+    //number of asteroids destroyed
+    int destroyed;
+    //duration of time alive
+    int time;
+    //words per minute (destroyed / time)
+    int wpm;
+    //score based off words typed
+    int score;
+}
+
 void checkDeath();
 void printDeathscreen();
 void generateWord();
 void deleteWord();
 void printTitleScreen();
 void startGame();
+int wordPerMin(int a, int b);
+int scoreDeterminer(char a[30]);
