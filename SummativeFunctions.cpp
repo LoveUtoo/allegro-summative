@@ -6,7 +6,7 @@
 #include "SummativeHeader.h"
 
 void printTitleScreen() {
-    int difficulty = 0;
+    char difficulty;
     WordBank game;
     Stats player;
   
@@ -14,7 +14,12 @@ void printTitleScreen() {
 }
 
 void startGame() {
-  
+FILE *fptr;
+printf("What difficulty do you want to play? Easy, Medium, Hard (e/m/h)\n");
+if (dificulty = 'e'){
+    fptr = fopen("WordBankEasy.txt", "r");
+}else if (fptr = fopen("WordBankEasy.txt", "r");
+    
 }
 
 void printDeathScreen() {
