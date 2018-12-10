@@ -19,6 +19,11 @@
 #include "SummativeHeader.h"
 
 int main(int argc, char *argv[]) {
+	//intialize variables
+	char difficulty;
+    Words game[100];
+    Stats player;
+	
    	//initialize Allegro
     initializeAllegro();
     
