@@ -47,7 +47,7 @@ void startGame() {
 void generateWord(){
     char wordbank[35][30];
     int counter = 0;
-    int random = 0;
+    int rnd = 0;
     int question = 0;
     while (fgets(wordbank[35] , 30, fptr) != EOF){
         for(int i = 0; i < 35; i++){
@@ -56,8 +56,8 @@ void generateWord(){
         }
     }
     fclose(fptr);
-    random = rand() % counter;
-    strcpy (OnscreenWords[random][20], wordbank[random][30]);
+    rnd = rand() % counter;
+    strcpy (OnscreenWords[rnd][20], wordbank[rnd][30]);
     }
 }
 
