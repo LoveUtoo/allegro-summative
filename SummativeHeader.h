@@ -5,7 +5,7 @@ const int SCREEN_H = 480;       // screen height
 #define BGCOLOR al_map_rgb(0,0,0)
 
 //Define structs
-stuct Words {
+struct Words {
     //characters you have typed so far
     char hotbar [30];
     //words on screen
@@ -15,7 +15,7 @@ stuct Words {
 
 struct Stats {
     //number of astroids created (counter)
-    int created
+    int created;
     //number of asteroids destroyed
     int destroyed;
     //duration of time alive
@@ -24,16 +24,17 @@ struct Stats {
     int wpm;
     //score based off words typed
     int score;
-}
+};
 
 //general functions
-int readFile(WordBank w[], int &counter);
+int checkSetup(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font):
+void initializeAllegro();
 void checkDeath();
 void printDeathscreen();
 void generateWord();
 void deleteWord();
-void printTitleScreen();
-void startGame();
+void printTitleScreen(ALLEGRO_FONT *font);
+void startGame(Words game[]);
 int wordPerMin(int a, int b);
 int scoreDeterminer(char a[30]);
 char determineDifficulty();
