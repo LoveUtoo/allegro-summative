@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>               // For allegro, must be in compiler search path.
@@ -43,7 +44,20 @@ void startGame() {
             fscanf(fptr, "%s", p[counter].OffscreenWords);
             counter++;
         }
-        fclose(fptr);
+void generateWord(){
+    char wordbank[35][30];
+    int counter = 0;
+    int random = 0;
+    int question = 0;
+    while (fgets(wordbank[35] , 30, fptr) != EOF){
+        for(int i = 0; i < 35; i++){
+            fgets(wordbank[i], 30, fptr);
+            counter = i;
+        }
+    }
+    fclose(fptr);
+    random = rand() % counter;
+    strcpy (OnscreenWords[random][20], wordbank[random][30]);
     }
 }
 
