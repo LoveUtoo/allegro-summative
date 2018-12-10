@@ -2,7 +2,7 @@
  *	Name:     Nicolas                                                        *
  *	Date:     November 2018                                                  *
  *                                                                           *
- *	Purpose: Space-Word Blaster                                              *
+ *	Title: Space-Word Blaster                                              *
  *	                                                                         *
  *	Usage:   Allow us to show how we can use allegro to make games           *
  *	                                                                         *
