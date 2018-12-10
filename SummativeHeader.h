@@ -5,7 +5,7 @@ const int SCREEN_H = 480;       // screen height
 #define BGCOLOR al_map_rgb(0,0,0)
 
 //Define structs
-stuct WordBank {
+stuct Words {
     //characters you have typed so far
     char hotbar [30];
     //words on screen
@@ -36,3 +36,4 @@ void printTitleScreen();
 void startGame();
 int wordPerMin(int a, int b);
 int scoreDeterminer(char a[30]);
+char determineDifficulty();
