@@ -1,6 +1,9 @@
 const int SCREEN_W = 900;       // screen width
 const int SCREEN_H = 480;       // screen height
 
+#define TEXTCOLOR al_map_rgb(255,255,255)
+#define BGCOLOR al_map_rgb(0,0,0)
+
 //Define structs
 stuct WordBank {
     //characters you have typed so far
