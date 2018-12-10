@@ -23,27 +23,11 @@ void startGame() {
     char difficulty = determineDifficulty();
     if (difficulty = 'e'){
         fptr = fopen("WordBankEasy.txt", "r");
-    
-        while (fscanf(fptr, "%s", game[counter].OffscreenWords) != EOF){
-            fscanf(fptr, "%s", p[counter].OffscreenWords);
-            counter++;
-        }   
-        fclose(fptr);
     }else if (difficulty = 'm') {
         fptr = fopen("WordBankMedium.txt", "r");
-                 
-        while (fscanf(fptr, "%s", game[counter].OffscreenWords) != EOF){
-            fscanf(fptr, "%s", p[counter].OffscreenWords);
-            counter++;
-        }
-        fclose(fptr);
     }else if (difficulty = 'h') {
         fptr = fopen("WordBankHard.txt", "r");
-                 
-        while (fscanf(fptr, "%s", game[counter].OffscreenWords) != EOF){
-            fscanf(fptr, "%s", p[counter].OffscreenWords);
-            counter++;
-        }
+    }
 void generateWord(){
     char wordbank[35][30];
     int counter = 0;
