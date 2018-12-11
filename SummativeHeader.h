@@ -28,7 +28,7 @@ struct Stats {
 };
 
 //general functions
-int checkSetup(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font):
+int checkSetup(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font);
 void initializeAllegro();
 void checkDeath();
 void printDeathscreen();
