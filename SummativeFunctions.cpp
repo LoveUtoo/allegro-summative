@@ -16,21 +16,48 @@ void printTitleScreen(ALLEGRO_FONT *font) {
     al_flip_display();
 }
 
-void startGame() {
-    int counter = 0;
-    FILE *fptr;
+const int WordMaxLen = 30;
+const int WordLimit = 35;
+char wordbank[WordLimit][word_max_len+1];
+int wordCount = 0;
+
+void startGame()
+{
     printf("What difficulty do you want to play? Easy, Medium, Hard (e/m/h)\n");
     char difficulty = determineDifficulty();
-    if (difficulty = 'e'){
-        fptr = fopen("WordBankEasy.txt", "r");
-    }else if (difficulty = 'm') {
-        fptr = fopen("WordBankMedium.txt", "r");
-    }else if (difficulty = 'h') {
-        fptr = fopen("WordBankHard.txt", "r");
+    const char *file = NULL;
+    if (difficulty == 'e'){
+        file = "WordBankEasy.txt";
+    } else if (difficulty == 'm') {
+        file = "WordBankMedium.txt";
+    } else if (difficulty == 'h') {
+        file = "WordBankHard.txt";
     }
-void generateWord(){
-    char wordbank[35][30];
-    int counter = 0;
+    loadWords(file);
+}
+void loadWords(const char *file)
+{
+    FILE *fptr = fopen(file, "r");
+    if(!fptr) {
+        printf("cannot open file %s. %s\n", file, strerror(errno));
+        return -1;
+    }
+    char line[word_max_len+1];
+    wordCount = 0;
+    while(fgets(line, sizeof(line), fptr))
+    {
+        int len = strlen(line);
+        while(len>0 && isspace(line[len-1])) len--;
+        if(len<1) continue;
+        strcpy(wordbank[wordCount], line);
+        wordCount++;
+        if(wordCount>=WordLimit) break;
+    }
+    fclose(fptr);
+    return wordCount;
+}
+    
+    
     int rnd = 0;
     int question = 0;
     while (fgets(wordbank[35] , 30, fptr) != EOF){
