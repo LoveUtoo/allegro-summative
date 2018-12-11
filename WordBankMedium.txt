@@ -18,9 +18,8 @@ Eclipse
 Equinox
 Zodiac
 Meteor Shower
-Auralion Sol
 Parsec
-
+Magnetars
 Plasma
 Protostar
 Satellite
