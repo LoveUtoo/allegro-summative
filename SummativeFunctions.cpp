@@ -11,9 +11,15 @@ char determineDifficulty() {
 }
 
 void printTitleScreen(ALLEGRO_FONT *font) {
+    ALLEGRO_BITMAP *startButton = al_load_bitmap("waluigi.bmp");
+
     al_draw_text(font, TEXTCOLOR, MID_SCREEN, 5, ALLEGRO_ALIGN_CENTRE, "SPACE-WORD BLASTER EXTREME");
-    
+    al_draw_bitmap(startButton, MID_SCREEN, 225, 0);
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 265, ALLEGRO_ALIGN_CENTRE, "LEADERBOARDS");
+
     al_flip_display();
+
+    al_rest(20);
 }
 
 const int WordMaxLen = 30;
