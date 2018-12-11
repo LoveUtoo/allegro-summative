@@ -13,7 +13,7 @@ struct Words {
     char OnscreenWords [30][20];
     char OffscreenWords [30][100];
 };
-
+int lives = 3; 
 struct Stats {
     //number of astroids created (counter)
     int created;
