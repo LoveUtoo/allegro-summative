@@ -20,7 +20,7 @@ Zodiac
 Meteor Shower
 Auralion Sol
 Parsec
-Photosphere
+
 Plasma
 Protostar
 Satellite
