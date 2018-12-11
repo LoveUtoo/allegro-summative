@@ -11,7 +11,7 @@ char determineDifficulty() {
 }
 
 void printTitleScreen(ALLEGRO_FONT *font) {
-    al_draw_text(font, TEXTCOLOR, 200, 5, ALLEGRO_ALIGN_CENTRE, "Game");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 5, ALLEGRO_ALIGN_CENTRE, "SPACE-WORD BLASTER EXTREME");
     
     al_flip_display();
 }
