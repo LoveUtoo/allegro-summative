@@ -18,8 +18,13 @@ void printTitleScreen(ALLEGRO_FONT *font) {
 
 const int WordMaxLen = 30;
 const int WordLimit = 35;
-char wordbank[WordLimit][word_max_len+1];
-int wordCount = 0;
+struct WordBank {
+    char words[WordLimit][WordMaxLen+1];
+    int wordsCount;
+    bool used[WordLimit];
+    int usedCount;
+};
+struct workbank;
 
 void startGame()
 {
@@ -35,6 +40,7 @@ void startGame()
     }
     loadWords(file);
 }
+
 void loadWords(const char *file)
 {
     FILE *fptr = fopen(file, "r");
@@ -42,34 +48,41 @@ void loadWords(const char *file)
         printf("cannot open file %s. %s\n", file, strerror(errno));
         return -1;
     }
-    char line[word_max_len+1];
-    wordCount = 0;
+    char line[WordMaxLen+1];
+    int count = 0;
+    memset(&wordbank, 0, sizeof(wordbank));
     while(fgets(line, sizeof(line), fptr))
     {
         int len = strlen(line);
         while(len>0 && isspace(line[len-1])) len--;
         if(len<1) continue;
-        strcpy(wordbank[wordCount], line);
-        wordCount++;
-        if(wordCount>=WordLimit) break;
+        strcpy(wordbank.words[count], line);
+        count++;
+        if(count>=WordLimit) break;
     }
+    wordbank.wordsCount = count;
     fclose(fptr);
-    return wordCount;
+    return count;
 }
     
-    
-    int rnd = 0;
-    int question = 0;
-    while (fgets(wordbank[35] , 30, fptr) != EOF){
-        for(int i = 0; i < 35; i++){
-            fgets(wordbank[i], 30, fptr);
-            counter = i;
+int chooseNextWord(char *word)
+{
+    int count = wordbank.wordsCount - wordbank.usedCount;
+    if (count>0) {
+        int wordIndex = rand() % count;
+        count = -1;
+        for(int i=0; i<wordbank.wordsCount; i++) {
+            if(wordbank.used[i]) continue;
+            count++;
+            if(count==wordIndex) {
+                strcpy(word, wordbank.words[i]);
+                wordbank.used[i] = true;
+                wordbank.usedCount++;
+                return 1;
+            }
         }
     }
-    fclose(fptr);
-    rnd = rand() % counter;
-    strcpy (OnscreenWords[rnd][20], wordbank[rnd][30]);
-    }
+    return 0;
 }
 
 void printDeathScreen() {
