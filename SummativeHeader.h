@@ -10,12 +10,10 @@ struct Words {
     //characters you have typed so far
     char hotbar [30];
     //words on screen
-    char OnscreenWords [30][20];
-    char OffscreenWords [30][100];
+    int OnscreenWords [30];
+    int OffscreenWords [30];
 };
-
-int lives = 3;
-
+int lives = 3; 
 struct Stats {
     //number of astroids created (counter)
     int created;
@@ -36,7 +34,7 @@ void checkDeath();
 void printDeathscreen();
 void generateWord();
 void deleteWord();
-void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE mouseState);
+void printTitleScreen(ALLEGRO_FONT *font);
 void startGame(Words game[]);
 int wordPerMin(int a, int b);
 int scoreDeterminer(char a[30]);
