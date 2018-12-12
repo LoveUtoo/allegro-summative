@@ -20,22 +20,22 @@ void printTitleScreen(ALLEGRO_FONT *font) {
 
 int wordbank[31][35];
 
-void startGame()
-{
+void startGame(){
     printf("What difficulty do you want to play? Easy, Medium, Hard (e/m/h)\n");
-    char difficulty = determineDifficulty();
-    const char *file = NULL;
+    char difficulty;
+    scanf("%c", difficulty);
+    FILE *fptr;
     if (difficulty == 'e'){
-        file = "WordBankEasy.txt";
+        fptr = fopen("WordBankEasy.txt", "r");
     } else if (difficulty == 'm') {
-        file = "WordBankMedium.txt";
+        fptr = fopen("WordBankMedium.txt", "r");
     } else if (difficulty == 'h') {
-        file = "WordBankHard.txt";
+        fptr = fopen("WordBankHard.txt", "r");
     }
 }
 
 
-void generateWord(&int wordbank[30][35]){
+void generateWord(int &wordbank[30][35]){
     for(int i = 0; i < 31; i++){
             // while this is not the end of the file
         while(fgets(wordbank[i], 35, fptr) != NULL){
@@ -58,5 +58,5 @@ void chooseWord(int wordbank[30][35], int hotbar[30], int OnscreenWords[30]){
 }
 
 void printDeathScreen() {
-  
+    
 }
