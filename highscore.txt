@@ -1,10 +1,10 @@
-player one    12334
-player two    2345
-player three  2312
-player four   2311
-player five   2234
-player six    1234
-player seven  1221
-player eight  1197
-player nine   1121
-player ten    900
+playerone    12334
+playertwo    2345
+playerthree  2312
+playerfour   2311
+playerfive   2234
+playersix    1234
+playerseven  1221
+playereight  1197
+playernine   1121
+playerten    900
