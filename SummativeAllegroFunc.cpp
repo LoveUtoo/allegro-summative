@@ -3,6 +3,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>                       // For allegro, must be in compiler search path.
 #include <allegro5/allegro_native_dialog.h> 		// for message box
+#include <allegro5/allegro_image.h>
 #include "SummativeHeader.h"
 
 /**Initializes required allegro functions */
@@ -23,6 +24,14 @@ Parameters: display and font variables
 Returns: 0 if good, -1 if error
 */
 int checkSetup(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font){
+
+
+    // Initialize image add on
+ 	if (!al_init_image_addon()) {
+    	al_show_native_message_box(display, "Error", "Error",
+    		"Failed to initialize image addon!", nullptr, ALLEGRO_MESSAGEBOX_ERROR);
+    	return -1;
+	}
 
     // Check if your allegro routines worked successfully.
 	if (!display) {
