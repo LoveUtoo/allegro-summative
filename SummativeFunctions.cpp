@@ -6,10 +6,6 @@
 #include <allegro5/allegro_native_dialog.h> 		// for message box
 #include "SummativeHeader.h"
 
-char determineDifficulty() {
-    
-}
-
 void printTitleScreen(ALLEGRO_FONT *font) {
     ALLEGRO_BITMAP *startButton = al_load_bitmap("waluigi.bmp");
 
@@ -22,15 +18,7 @@ void printTitleScreen(ALLEGRO_FONT *font) {
     al_rest(20);
 }
 
-const int WordMaxLen = 30;
-const int WordLimit = 35;
-struct WordBank {
-    char words[WordLimit][WordMaxLen+1];
-    int wordsCount;
-    bool used[WordLimit];
-    int usedCount;
-};
-struct workbank;
+int wordbank[31][35];
 
 void startGame()
 {
@@ -44,51 +32,29 @@ void startGame()
     } else if (difficulty == 'h') {
         file = "WordBankHard.txt";
     }
-    loadWords(file);
 }
 
-void loadWords(const char *file)
-{
-    FILE *fptr = fopen(file, "r");
-    if(!fptr) {
-        printf("cannot open file %s. %s\n", file, strerror(errno));
-        return -1;
-    }
-    char line[WordMaxLen+1];
-    int count = 0;
-    memset(&wordbank, 0, sizeof(wordbank));
-    while(fgets(line, sizeof(line), fptr))
-    {
-        int len = strlen(line);
-        while(len>0 && isspace(line[len-1])) len--;
-        if(len<1) continue;
-        strcpy(wordbank.words[count], line);
-        count++;
-        if(count>=WordLimit) break;
-    }
-    wordbank.wordsCount = count;
-    fclose(fptr);
-    return count;
-}
-    
-int chooseNextWord(char *word)
-{
-    int count = wordbank.wordsCount - wordbank.usedCount;
-    if (count>0) {
-        int wordIndex = rand() % count;
-        count = -1;
-        for(int i=0; i<wordbank.wordsCount; i++) {
-            if(wordbank.used[i]) continue;
-            count++;
-            if(count==wordIndex) {
-                strcpy(word, wordbank.words[i]);
-                wordbank.used[i] = true;
-                wordbank.usedCount++;
-                return 1;
-            }
+
+void generateWord(&int wordbank[30][35]){
+    for(int i = 0; i < 31; i++){
+            // while this is not the end of the file
+        while(fgets(wordbank[i], 35, fptr) != NULL){
+            fgets(wordbank[i], 35, fptr);
         }
     }
-    return 0;
+}
+
+void chooseWord(int wordbank[30][35], int hotbar[30], int OnscreenWords[30]){
+    // printnumber represents the number in wordbank that corresponds to a word
+    int printnumber = 0;
+    // onScreenwords are the words we already used
+    while(onScreenwords[printnumber] != 1){
+        printnumber = rand() % 30;
+        // hotbar are the words we are about to print
+        strcpy(hotbar[30], wordbank[printnumber])
+        // mark in OnscreenWords that we used this number/word 
+        OnscreenWords[printnumber] = 1;
+    }
 }
 
 void printDeathScreen() {
