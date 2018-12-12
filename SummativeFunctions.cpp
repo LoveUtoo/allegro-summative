@@ -23,7 +23,7 @@ int wordbank[31][35];
 void startGame(){
     printf("What difficulty do you want to play? Easy, Medium, Hard (e/m/h)\n");
     char difficulty;
-    scanf("%c", difficulty);
+    scanf("%c", &difficulty);
     FILE *fptr;
     if (difficulty == 'e'){
         fptr = fopen("WordBankEasy.txt", "r");
