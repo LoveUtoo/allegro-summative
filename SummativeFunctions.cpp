@@ -58,5 +58,10 @@ void chooseWord(int wordbank[30][35], int hotbar[30], int OnscreenWords[30]){
 }
 
 void printDeathScreen() {
-    
+  char name[10];
+  int highscore;
+  FILE *fptr;
+  fptr = fopen("highscore.txt", "w");
+  for(int i = 0; i<10; i++){
+  fgets()    
 }
