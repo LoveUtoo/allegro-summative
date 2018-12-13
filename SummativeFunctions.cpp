@@ -13,10 +13,10 @@ void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUS
     ALLEGRO_BITMAP *startButton = al_load_bitmap("Waluigi.png");
 	
 	imgData StartButton;
-	StartButton.left = 0 ;
-	StartButton.right = 0 ;
-	StartButton.top = 0 ;
-	StartButton.bot = 0 ;
+	StartButton.left = 338 ;
+	StartButton.right = 548 ;
+	StartButton.top = 64 ;
+	StartButton.bot = 253 ;
 
     if (!startButton) {
     	al_show_native_message_box(display, "Error", "Error", "Failed to load start button image.",
@@ -34,6 +34,11 @@ void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUS
 
         al_get_mouse_state(&mouseState);
         printf("%d %d %0.2f\n", mouseState.x, mouseState.y, mouseState.pressure);
+	    
+	if (mouseState.x > StartButton.left && mouseState.x < StartButton.right && mouseState.y > StartButton.top && mouseState.y < StartButton.bot && mouseState.pressure == 1.0) {
+            printf("test");
+        }
+	    
         al_rest(0.01);
     }
 }
