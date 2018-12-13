@@ -11,6 +11,12 @@ char determineDifficulty() {
 
 void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE mouseState) {
     ALLEGRO_BITMAP *startButton = al_load_bitmap("Waluigi.png");
+	
+	imgData.StartButton;
+	StartButton.left = ;
+	StartButton.right = ;
+	StartButton.top = ;
+	StartButton.bot = ;
 
     if (!startButton) {
     	al_show_native_message_box(display, "Error", "Error", "Failed to load start button image.",
