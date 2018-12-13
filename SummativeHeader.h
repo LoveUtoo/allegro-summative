@@ -27,6 +27,17 @@ struct Stats {
     int score;
 };
 
+struct imgData {
+    //x coordinate of left side
+    int left;
+    //x coordinate of right side
+    int right
+    //y coordinate of top side
+    int top;
+    //y coordinate of bottom side
+    int bot;
+}
+
 //general functions
 int checkSetup(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font);
 void initializeAllegro();
