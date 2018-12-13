@@ -15,7 +15,12 @@ void printTitleScreen(ALLEGRO_FONT *font) {
 
     al_flip_display();
 
-    al_rest(20);
+    while(true) {
+
+        al_get_mouse_state(&mouseState);
+        printf("%d %d %0.2f\n", mouseState.x, mouseState.y, mouseState.pressure);
+        al_rest(0.01);
+    }
 }
 
 int wordbank[31][35];
