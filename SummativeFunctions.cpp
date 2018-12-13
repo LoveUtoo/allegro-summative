@@ -26,7 +26,11 @@ void printTitleScreen(ALLEGRO_FONT *font) {
 int wordbank[31][35];
 
 void startGame(){
-    printf("What difficulty do you want to play? Easy, Medium, Hard (e/m/h)\n");
+        al_show_native_message_box(
+        display,                        // screen
+        "Gravity Game",          // Title Bar Text
+        "Gravity",                      // Title
+        "What difficulty do you want to play? Easy, Medium, Hard (e/m/h)\n",
     char difficulty;
     scanf("%c", &difficulty);
     FILE *fptr;
