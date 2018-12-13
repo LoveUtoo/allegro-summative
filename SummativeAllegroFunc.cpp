@@ -51,3 +51,4 @@ int checkSetup(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font){
 
    return 0;
 }
+
