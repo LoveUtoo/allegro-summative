@@ -41,12 +41,6 @@ int main(int argc, char *argv[]) {
 	//prints title screen
 	printTitleScreen(font, display, mouseState);
 
-	//starts the game
-	//startGame();
-
-	//ends the game
-	//printDeathScreen();
-
 	return 0;
 
 
