@@ -4,7 +4,10 @@ const int MID_SCREEN = (SCREEN_W) / 2;
 
 #define TEXTCOLOR al_map_rgb(255,255,255)
 #define BGCOLOR al_map_rgb(0,0,0)
-
+// Initializing more variables
+int lives = 3; 
+// The string that the user has typed in the box. The print words function also goes here. 
+char printedcharacters[30];
 //Define structs
 struct Words {
     //characters you have typed so far
