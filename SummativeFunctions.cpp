@@ -81,6 +81,10 @@ void generateWord(int &wordbank[30][35]){
             fgets(wordbank[i], 35, fptr);
         }
     }
+	ALLEGRO_BITMAP *ship = al_load_bitmap("shipPlaceholder.png");
+    ALLEGRO_BITMAP *gun = al_load_bitmap("cannonPlaceholder.png");
+    al_draw_bitmap(ship, 225, 50, 0);
+    al_draw_bitmap(gun, 300, 30, 0);
 }
 
 void chooseWord(int wordbank[30][35], int hotbar[30], int OnscreenWords[30]){
