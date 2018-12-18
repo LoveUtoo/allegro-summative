@@ -4,6 +4,8 @@ const int MID_SCREEN = (SCREEN_W) / 2;
 
 #define TEXTCOLOR al_map_rgb(255,255,255)
 #define BGCOLOR al_map_rgb(0,0,0)
+#define WHITE al_map_rgb(255,255,255)
+
 // Initializing more variables
 int lives = 3; 
 // The string that the user has typed in the box. The print words function also goes here. 
@@ -54,3 +56,4 @@ void startGame(Words game[]);
 int wordPerMin(int a, int b);
 int scoreDeterminer(char a[30]);
 char determineDifficulty();
+int mouseClick(imgData a, ALLEGRO_MOUSE_STATE mouseState);
