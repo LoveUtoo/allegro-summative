@@ -53,6 +53,7 @@ void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUS
     }else if (mouseClick(QuitButton, mouseState) == 1){
         al_clear_to_color(BGCOLOR);
         al_flip_display();
+	al_destroy_display(display);
     }
 
     al_rest(0.01);
