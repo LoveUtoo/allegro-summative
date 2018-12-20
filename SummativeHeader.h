@@ -50,6 +50,7 @@ void initializeAllegro();
 void checkDeath();
 void printDeathscreen();
 void generateWord();
+void getWords(FILE *fptr, char wordbank[][100], int &a);
 void deleteWord();
 void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE mouseState);
 void startGame(Words game[]);
