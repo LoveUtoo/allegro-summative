@@ -15,8 +15,8 @@ struct Words {
     //characters you have typed so far
     char hotbar [30];
     //words on screen
-    char OnscreenWords [30][20];
-    char OffscreenWords [30][100];
+    char OnscreenWords [20][30];
+    char OffscreenWords [100][30];
 };
 
 
@@ -50,7 +50,7 @@ void initializeAllegro();
 void checkDeath();
 void printDeathscreen();
 void generateWord();
-void getWords(FILE *fptr, char wordbank[][100], int &a);
+void getWords(FILE *fptr, char wordbank[][30], int &a);
 void deleteWord();
 void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE mouseState);
 void startGame(Words game[]);
