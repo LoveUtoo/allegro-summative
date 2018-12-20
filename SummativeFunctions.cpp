@@ -63,6 +63,10 @@ void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUS
 
 //function that starts the game when the user presses the start image.
 void startGame() {
+    int wordNum = 0;
+    double = 60;
+    bool alive = true;
+    int diffTimer = 0;
     Words game;
     int counter = 0;
     FILE *fptr;
@@ -76,22 +80,24 @@ void startGame() {
         fptr = fopen("WordBankHard.txt", "r");
     }
 
-    while (fscanf(fptr, "%s", game.OffscreenWords[counter]) != EOF){
-        fscanf(fptr, "%s", game.OffscreenWords[counter]);
-        counter++;
-    }
-        fclose(fptr);
-// loading in images
+    getWords(fptr, game.OffscreenWords[][], wordNum);
+
+    fclose(fptr);
+
     ALLEGRO_BITMAP *ship = al_load_bitmap("shipPlaceholder.png");
     ALLEGRO_BITMAP *gun = al_load_bitmap("cannonPlaceholder.png");
-	// making the images transparent and giving their positions
 
     al_convert_mask_to_alpha(ship, WHITE);
     al_convert_mask_to_alpha(gun, WHITE);
-    al_draw_bitmap(ship, 250, 25, 0);
-    al_draw_bitmap(gun, 300, 30, 0);
-
+    al_draw_bitmap(gun, 600, 30, 0);
+    al_draw_bitmap(ship, 250, 65, 0);
     al_flip_display();
+
+    while (alive == true) {
+        printf("test");
+    }
+
+
     al_rest(20);
 }
 
