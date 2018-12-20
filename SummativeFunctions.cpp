@@ -101,7 +101,7 @@ void startGame() {
     al_rest(20);
 }
 
-void getWords(int &wordbank[wordNum][35], int &a){
+void getWords(FILE *fptr, char wordbank[][100], int &a){
     for(int i = 0; i < 31; i++){
             // while this is not the end of the file
         while(fgets(wordbank[i], 35, fptr) != NULL){
