@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 
     //declare and initialize display and font, and check they have been setup properly
     ALLEGRO_DISPLAY *display = al_create_display(SCREEN_W, SCREEN_H);
-    ALLEGRO_FONT *font = al_load_ttf_font("Space Age.ttf", 36, 0);
+    ALLEGRO_FONT *font = al_load_ttf_font("space age.ttf", 36, 0);
     checkSetup(display, font);
 
     ALLEGRO_MOUSE_STATE mouseState;
