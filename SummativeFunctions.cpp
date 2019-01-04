@@ -111,16 +111,17 @@ void getWords(FILE *fptr, char wordbank[][30], int &a){
     }
 }
 
-void chooseWord(int wordbank[wordNum][35], int hotbar[wordnum], int OnscreenWords[wordNum]){
+void chooseWord(int wordbank[wordNum][35], int hotbar[wordnum], int OnscreenWords[wordNum], int printnumber){
     // printnumber represents the number in wordbank that corresponds to a word
-    int printnumber = 0;
     // onScreenwords are the words we already used
     while(onScreenwords[printnumber] != 1){
         printnumber = rand() % wordNum;
         // hotbar are the words we are about to print
-        strcpy(hotbar[wordNum], wordbank[printnumber])
+	    
+        if (strcpy(hotbar[wordNum], wordbank[printnumber])){
         // mark in OnscreenWords that we used this number/word 
         OnscreenWords[printnumber] = 1;
+	}
     }
 }
 
