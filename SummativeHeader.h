@@ -8,6 +8,7 @@ const int MID_SCREEN = (SCREEN_W) / 2;
 
 // Initializing more variables
 int lives = 3; 
+int printnumber = 0;
 // The string that the user has typed in the box. The print words function also goes here. 
 char printedcharacters[30];
 //Define structs
