@@ -7,17 +7,19 @@ const int MID_SCREEN = (SCREEN_W) / 2;
 #define WHITE al_map_rgb(255,255,255)
 
 // Initializing more variables
-int lives = 3; 
-int printnumber = 0;
-// The string that the user has typed in the box. The print words function also goes here. 
-char printedcharacters[30];
+extern int lives;
+extern int printnumber;
+// The string that the user has typed in the box. The print words function also goes here.
+extern char printedcharacters[30];
 //Define structs
 struct Words {
     //characters you have typed so far
     char hotbar [30];
     //words on screen
-    char OnscreenWords [20][30];
+    //char OnscreenWords [20][30];
+    int OnscreenWords [20];
     char OffscreenWords [100][30];
+    //int OffscreenWordsSize;
 };
 
 
@@ -49,13 +51,14 @@ struct imgData {
 int checkSetup(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font);
 void initializeAllegro();
 void checkDeath();
+int checkRight();
 void printDeathscreen();
 void generateWord();
-void getWords(FILE *fptr, char wordbank[][30], int &a);
+void getWords(FILE *fptr, Words& game, int &wordCount);
 void deleteWord();
-void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE mouseState);
-void startGame(Words game[]);
+void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState);
+void startGame(/*Words game[]*/);
 int wordPerMin(int a, int b);
 int scoreDeterminer(char a[30]);
 char determineDifficulty();
-int mouseClick(imgData a, ALLEGRO_MOUSE_STATE mouseState);
+int mouseClick(imgData& a, ALLEGRO_MOUSE_STATE& mouseState);
