@@ -1,14 +1,18 @@
 #include <stdio.h>
+#include <string.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>               // For allegro, must be in compiler search path.
 #include <allegro5/allegro_native_dialog.h> 		// for message box
 #include "SummativeHeader.h"// the header
 
+int lives = 3;
+int printnumber = 0;
+char printedcharacters[30];
 
 //functions that displays title screen
-void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE mouseState) {
-    ALLEGRO_BITMAP *startButton = al_load_bitmap("Waluigi.png");
+void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState) {
+    ALLEGRO_BITMAP *startButton = al_load_bitmap("startButton.png");
 // The position that the start button is located
 	imgData StartButton;
 	StartButton.left = 338 ;
@@ -36,21 +40,22 @@ void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUS
     al_flip_display();
 
     while(true) {
-// Getting a position of the mouse and creating the events in which to call functions
+        // Getting a position of the mouse and creating the events in which to call functions
         al_get_mouse_state(&mouseState);
         printf("%d %d %0.2f\n", mouseState.x, mouseState.y, mouseState.pressure);
 
-	if (mouseClick(StartButton, mouseState) == 1) {
-        al_clear_to_color(BGCOLOR);
-        al_flip_display();
-        startGame();
-    }else if (mouseClick(QuitButton, mouseState) == 1){
-        al_clear_to_color(BGCOLOR);
-        al_flip_display();
-	al_destroy_display(display);
-    }
+        if (mouseClick(StartButton, mouseState) == 1) {
+            al_clear_to_color(BGCOLOR);
+            al_flip_display();
+            startGame();
+        }else if (mouseClick(QuitButton, mouseState) == 1){
+            al_clear_to_color(BGCOLOR);
+            al_flip_display();
+            al_destroy_display(display);
+            break; // quit game
+        }
 
-    al_rest(0.01);
+        al_rest(0.01);
     }
 
 }
@@ -58,7 +63,7 @@ void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUS
 //function that starts the game when the user presses the start image.
 void startGame() {
     int wordNum = 0;
-    double = 60;
+    //double = 60;
     bool alive = true;
     int diffTimer = 0;
     Words game;
@@ -74,10 +79,10 @@ void startGame() {
         fptr = fopen("WordBankHard.txt", "r");
     }
 
-    getWords(fptr, game.OffscreenWords, wordNum);
+    getWords(fptr, game, wordNum);
 
     fclose(fptr);
-
+/*
     ALLEGRO_BITMAP *ship = al_load_bitmap("shipPlaceholder.png");
     ALLEGRO_BITMAP *gun = al_load_bitmap("cannonPlaceholder.png");
 
@@ -85,6 +90,7 @@ void startGame() {
     al_convert_mask_to_alpha(gun, WHITE);
     al_draw_bitmap(gun, 600, 30, 0);
     al_draw_bitmap(ship, 250, 65, 0);
+*/
     al_flip_display();
 
     while (alive == true) {
@@ -95,27 +101,29 @@ void startGame() {
     al_rest(20);
 }
 
-void getWords(FILE *fptr, char wordbank[][30], int &a){
-    for(int i = 0; i < 31; i++){
-            // while this is not the end of the file
-        while(fgets(wordbank[i], 35, fptr) != NULL){
-            fgets(wordbank[i], 35, fptr);
-	    a++;
+void getWords(FILE *fptr, Words& game, int &count){
+    //for(int i = 0; i < 31; i++){
+        // while this is not the end of the file
+        count = 0;
+        while(fgets(game.OffscreenWords[count], 30, fptr) != NULL){
+            //fgets(wordbank[i], 35, fptr);
+            //int n = strlen(game.OffscreenWords[count]);
+            //while(n>0 && isspace(game.OffscreenWords[count][n-1]))n--;
+            //if(n<1) continue;
+            count++;
+            if(count>=100) break;
         }
-    }
+    //}
 }
-
-void chooseWord(int wordbank[wordNum][35], int hotbar[wordnum], int OnscreenWords[wordNum], int printnumber){
-    // printnumber represents the number in wordbank that corresponds to a word
+// Chooses the words that the user needs to type
+void chooseWord(Words& game, int wordNum, int &printnumber){
     // onScreenwords are the words we already used
-    while(onScreenwords[printnumber] != 1){
-        printnumber = rand() % wordNum;
+    while(game.OnscreenWords[printnumber] < 1){
+        int index = rand() % wordNum;
         // hotbar are the words we are about to print
-	    
-        if (strcpy(hotbar[wordNum], wordbank[printnumber])){
-        // mark in OnscreenWords that we used this number/word 
-        OnscreenWords[printnumber] = 1;
-	}
+        //strcpy(game.hotbar[wordNum], game.OffscreenWords[printnumber])
+        // mark in OnscreenWords that we used this number/word
+        game.OnscreenWords[printnumber] = index+1;
     }
 }
 
@@ -125,7 +133,8 @@ void printDeathScreen() {
   FILE *fptr;
   fptr = fopen("highscore.txt", "w");
   for(int i = 0; i<10; i++){
-  fgets()    
+  //fgets();
+  }
 }
 
 	//function that determines difficulty
@@ -134,14 +143,14 @@ char determineDifficulty() {
     return a;
 }
 // Function that checks if you clicked a button
-int mouseClick(imgData a, ALLEGRO_MOUSE_STATE mouseState){
+int mouseClick(imgData& a, ALLEGRO_MOUSE_STATE& mouseState){
     if (mouseState.x > a.left && mouseState.x < a.right && mouseState.y > a.top && mouseState.y < a.bot && mouseState.pressure == 1.0) {
         return 1;
-    }else if (mouseState.x > a.left && mouseState.x < a.right && mouseState.y > a.top && mouseState.y < a.bot && mouseState.pressure != 1.0) {
+    }//else if (mouseState.x > a.left && mouseState.x < a.right && mouseState.y > a.top && mouseState.y < a.bot && mouseState.pressure != 1.0) {
         return 0;
-    }
+    //}
 }
-	
+
 void printword(){
 int holder = 0;
 ALLEGRO_EVENT_QUEUE *event_queue = nullptr;
@@ -233,5 +242,5 @@ for(int i = 0; i < 30; i++){
                		holder++;
          	}
       	}
-	}
+}
 }
