@@ -5,12 +5,6 @@
 #include <allegro5/allegro_native_dialog.h> 		// for message box
 #include "SummativeHeader.h"// the header
 
-#include <stdio.h>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>               // For allegro, must be in compiler search path.
-#include <allegro5/allegro_native_dialog.h> 		// for message box
-#include "SummativeHeader.h"
 
 //functions that displays title screen
 void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE mouseState) {
