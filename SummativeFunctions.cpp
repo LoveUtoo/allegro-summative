@@ -152,97 +152,21 @@ int mouseClick(imgData& a, ALLEGRO_MOUSE_STATE& mouseState){
         return 0;
     //}
 }
-
-void printword(){
-int holder = 0;
-ALLEGRO_EVENT_QUEUE *event_queue = nullptr;
-ALLEGRO_EVENT ev;
-al_wait_for_event(event_queue, &ev);
-for(int i = 0; i < 30; i++){
-    if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-        	break;
-      	}
-      	else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
-         	switch(ev.keyboard.keycode) {
-            	case ALLEGRO_KEY_A:
-               		printedcharacters[holder] = 'a';
-               		holder++;
-                case ALLEGRO_KEY_B:
-               		printedcharacters[holder] = 'b';
-               		holder++;
-                case ALLEGRO_KEY_C:
-               		printedcharacters[holder] = 'c';
-               		holder++;
-                case ALLEGRO_KEY_D:
-               		printedcharacters[holder] = 'd';
-               		holder++;
-                case ALLEGRO_KEY_E:
-               		printedcharacters[holder] = 'e';
-               		holder++;
-                case ALLEGRO_KEY_F:
-               		printedcharacters[holder] = 'f';
-               		holder++;
-                case ALLEGRO_KEY_G:
-               		printedcharacters[holder] = 'g';
-               		holder++;
-                case ALLEGRO_KEY_H:
-               		printedcharacters[holder] = 'h';
-               		holder++;
-                case ALLEGRO_KEY_I:
-               		printedcharacters[holder] = 'i';
-               		holder++;
-                case ALLEGRO_KEY_J:
-               		printedcharacters[holder] = 'j';
-               		holder++;
-                case ALLEGRO_KEY_K:
-               		printedcharacters[holder] = 'k';
-               		holder++;
-                case ALLEGRO_KEY_L:
-               		printedcharacters[holder] = 'l';
-               		holder++;
-                case ALLEGRO_KEY_M:
-               		printedcharacters[holder] = 'm';
-               		holder++;
-                case ALLEGRO_KEY_N:
-               		printedcharacters[holder] = 'n';
-               		holder++;
-                case ALLEGRO_KEY_O:
-               		printedcharacters[holder] = 'o';
-               		holder++;
-                case ALLEGRO_KEY_P:
-               		printedcharacters[holder] = 'p';
-               		holder++;
-                case ALLEGRO_KEY_Q:
-               		printedcharacters[holder] = 'q';
-               		holder++;
-                case ALLEGRO_KEY_R:
-               		printedcharacters[holder] = 'r';
-               		holder++;
-                case ALLEGRO_KEY_S:
-               		printedcharacters[holder] = 's';
-               		holder++;
-                case ALLEGRO_KEY_T:
-               		printedcharacters[holder] = 't';
-               		holder++;
-                case ALLEGRO_KEY_U:
-               		printedcharacters[holder] = 'u';
-               		holder++;
-                case ALLEGRO_KEY_V:
-               		printedcharacters[holder] = 'v';
-               		holder++;
-                case ALLEGRO_KEY_W:
-               		printedcharacters[holder] = 'w';
-               		holder++;
-                case ALLEGRO_KEY_X:
-               		printedcharacters[holder] = 'x';
-               		holder++;
-                case ALLEGRO_KEY_Y:
-               		printedcharacters[holder] = 'y';
-               		holder++;
-                case ALLEGRO_KEY_Z:
-               		printedcharacters[holder] = 'z';
-               		holder++;
+// not done printword
+void printword(const ALLEGRO_KEYBOARD_EVENT& ev, int index){
+	char character;
+	if(ev.keycode>=ALLEGRO_KEY_A && ev.keycode<=ALLEGRO_KEY_Z){
+        	character = 'a' + (ev.keycode - ALLEGRO_KEY_A);
          	}
-      	}
+	else if(ev.keycode == ALLEGRO_KEY_SPACE{
+		character = ' ';
+      	}else if(ev.keycode == ALLEGRO_KEY_BACKSPACE) {
+        	character = '~';
+	}else if(ev.keycode == ALLEGRO_KEY_ENTER) {
+        	character = '`';
+	}else{
+		return -1;
 }
+	int num = strlen(hotbar[30]);
+	if
 }
