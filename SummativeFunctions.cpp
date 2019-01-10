@@ -153,20 +153,37 @@ int mouseClick(imgData& a, ALLEGRO_MOUSE_STATE& mouseState){
     //}
 }
 // not done printword
-void printword(const ALLEGRO_KEYBOARD_EVENT& ev, int index){
+void printword(const ALLEGRO_KEYBOARD_EVENT& ev, int index, Words &game){
 	char character;
 	if(ev.keycode>=ALLEGRO_KEY_A && ev.keycode<=ALLEGRO_KEY_Z){
         	character = 'a' + (ev.keycode - ALLEGRO_KEY_A);
          	}
-	else if(ev.keycode == ALLEGRO_KEY_SPACE{
+	else if(ev.keycode == ALLEGRO_KEY_SPACE){
 		character = ' ';
       	}else if(ev.keycode == ALLEGRO_KEY_BACKSPACE) {
         	character = '~';
 	}else if(ev.keycode == ALLEGRO_KEY_ENTER) {
         	character = '`';
 	}else{
-		return -1;
 }
-	int num = strlen(hotbar[30]);
-	if
+	int num = strlen(game.hotbar[30]);
+	if(character == '~'){
+		game.hotbar[num-1] = ' ';
+	}else if(character == '`'){
+		for(int i = 0; i<30; i++){
+			int placeholder = strcmp(game.hotbar,game.OnscreenWords[i]);
+			if(placeholder != 0){
+				continue;
+			}else{
+			    // When we find a match
+				for(int i = 0; i<30;i++){
+				game.hotbar[i] = " ";
+				}
+
+			}
+		}
+	}else{
+	game.hotbar[num] = character;
+	}
+
 }
