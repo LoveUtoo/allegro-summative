@@ -121,6 +121,7 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
     double timer = 0;
     int wordNum = 0;
     //double = 60;
+    game.hotbar[30] = {' '};
     bool alive = true;
     Words game;
     int counter = 0;
@@ -270,7 +271,7 @@ int mouseClick(imgData& a, ALLEGRO_MOUSE_STATE& mouseState){
     //}
 }
 
-void printword(char printedcharacters[30]){
+/*void printword(char printedcharacters[30]){
 int holder = 0;
 ALLEGRO_EVENT_QUEUE *event_queue = nullptr;
 ALLEGRO_EVENT ev;
@@ -357,4 +358,38 @@ al_wait_for_event(event_queue, &ev);
                 holder++;
         }
     }
+}*/
+void printword(const ALLEGRO_KEYBOARD_EVENT& ev, int index, Words &game){
+	char character;
+	if(ev.keycode>=ALLEGRO_KEY_A && ev.keycode<=ALLEGRO_KEY_Z){
+        	character = 'a' + (ev.keycode - ALLEGRO_KEY_A);
+         	}
+	else if(ev.keycode == ALLEGRO_KEY_SPACE){
+		character = ' ';
+      	}else if(ev.keycode == ALLEGRO_KEY_BACKSPACE) {
+        	character = '~';
+	}else if(ev.keycode == ALLEGRO_KEY_ENTER) {
+        	character = '`';
+	}else{
+}
+	int num = strlen(game.hotbar);
+	if(character == '~'){
+		game.hotbar[num-1] = ' ';
+	}else if(character == '`'){
+		for(int i = 0; i<30; i++){
+			int placeholder = strcmp(game.hotbar,game.OnscreenWords);
+			if(placeholder != 0){
+				continue;
+			}else{
+			    // When we find a match
+				for(int i = 0; i<30;i++){
+				game.hotbar[i] = ' ';
+				}
+
+			}
+		}
+	}else{
+	game.hotbar[num] = character;
+	}
+
 }
