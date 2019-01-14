@@ -166,12 +166,12 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
             timer = 0;
         }
 
-        if (difficulty == 'e' && timer > 5) {
+        if (difficulty == 'm' && timer > 5) {
             chooseWord(game, wordNum, wordIndex);
             timer = 0;
         }
 
-        if (difficulty == 'e' && timer > 3) {
+        if (difficulty == 'h' && timer > 3) {
             chooseWord(game, wordNum, wordIndex);
             timer = 0;
         }
@@ -227,7 +227,6 @@ void wordLocation(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, int wordNum, Wor
     char holder[30];
     for (int i=0; i<30; i++) {
             if(game.OnscreenWords[i][0]==0) continue; // valid on screen word?
-            //printf("test");
             game.wordY[i] += 1;
             al_draw_text(font, TEXTCOLOR, game.wordX[i], game.wordY[i], ALLEGRO_ALIGN_CENTRE, game.OnscreenWords[i]);
     }
@@ -259,6 +258,9 @@ void chooseWord(Words& game, int wordNum, int &wordIndex) {
         }
     }
     strcpy(game.OnscreenWords[wordIndex], holder);
+    if(strlen(game.OnscreenWords[wordIndex]) >= 10){
+        pos = 400;
+    }
     game.wordY[wordIndex] = 20;
     game.wordX[wordIndex] = pos;
     wordIndex++;
@@ -294,94 +296,6 @@ int mouseClick(imgData& a, ALLEGRO_MOUSE_STATE& mouseState){
     //}
 }
 
-/*void printword(char printedcharacters[30]){
-int holder = 0;
-ALLEGRO_EVENT_QUEUE *event_queue = nullptr;
-ALLEGRO_EVENT ev;
-al_wait_for_event(event_queue, &ev);
-    while (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
-        switch(ev.keyboard.keycode) {
-            case ALLEGRO_KEY_A:
-                printedcharacters[holder] = 'a';
-                holder++;
-            case ALLEGRO_KEY_B:
-                printedcharacters[holder] = 'b';
-                holder++;
-            case ALLEGRO_KEY_C:
-                printedcharacters[holder] = 'c';
-                holder++;
-            case ALLEGRO_KEY_D:
-                printedcharacters[holder] = 'd';
-                holder++;
-            case ALLEGRO_KEY_E:
-                printedcharacters[holder] = 'e';
-                holder++;
-            case ALLEGRO_KEY_F:
-                printedcharacters[holder] = 'f';
-                holder++;
-            case ALLEGRO_KEY_G:
-                printedcharacters[holder] = 'g';
-                holder++;
-            case ALLEGRO_KEY_H:
-                printedcharacters[holder] = 'h';
-                holder++;
-            case ALLEGRO_KEY_I:
-                printedcharacters[holder] = 'i';
-                holder++;
-            case ALLEGRO_KEY_J:
-                printedcharacters[holder] = 'j';
-                holder++;
-            case ALLEGRO_KEY_K:
-                printedcharacters[holder] = 'k';
-                holder++;
-            case ALLEGRO_KEY_L:
-                printedcharacters[holder] = 'l';
-                holder++;
-            case ALLEGRO_KEY_M:
-                printedcharacters[holder] = 'm';
-                holder++;
-            case ALLEGRO_KEY_N:
-                printedcharacters[holder] = 'n';
-                holder++;
-            case ALLEGRO_KEY_O:
-                printedcharacters[holder] = 'o';
-                holder++;
-            case ALLEGRO_KEY_P:
-                printedcharacters[holder] = 'p';
-                holder++;
-            case ALLEGRO_KEY_Q:
-                printedcharacters[holder] = 'q';
-                holder++;
-            case ALLEGRO_KEY_R:
-                printedcharacters[holder] = 'r';
-                holder++;
-            case ALLEGRO_KEY_S:
-                printedcharacters[holder] = 's';
-                holder++;
-            case ALLEGRO_KEY_T:
-                printedcharacters[holder] = 't';
-                holder++;
-            case ALLEGRO_KEY_U:
-                printedcharacters[holder] = 'u';
-                holder++;
-            case ALLEGRO_KEY_V:
-                printedcharacters[holder] = 'v';
-                holder++;
-            case ALLEGRO_KEY_W:
-                printedcharacters[holder] = 'w';
-                holder++;
-            case ALLEGRO_KEY_X:
-                printedcharacters[holder] = 'x';
-                holder++;
-            case ALLEGRO_KEY_Y:
-                printedcharacters[holder] = 'y';
-                holder++;
-            case ALLEGRO_KEY_Z:
-                printedcharacters[holder] = 'z';
-                holder++;
-        }
-    }
-}*/
 void processKeyboardEvent(const ALLEGRO_KEYBOARD_EVENT& ev, Words &game){
 	char character;
 	if(ev.keycode>=ALLEGRO_KEY_A && ev.keycode<=ALLEGRO_KEY_Z){
@@ -416,4 +330,3 @@ void processKeyboardEvent(const ALLEGRO_KEYBOARD_EVENT& ev, Words &game){
 
 	printf("hotbar: %d %c %s\n", num, character, game.hotbar);
 }
-
