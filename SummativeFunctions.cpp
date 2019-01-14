@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <strings.h>
+#include <ctype.h>
 #include <time.h>
 #include <stdlib.h>
 #include <allegro5/allegro.h>
@@ -44,7 +46,7 @@ void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUS
     while(true) {
         // Getting a position of the mouse and creating the events in which to call functions
         al_get_mouse_state(&mouseState);
-        printf("%d %d %0.2f\n", mouseState.x, mouseState.y, mouseState.pressure);
+        //printf("%d %d %0.2f\n", mouseState.x, mouseState.y, mouseState.pressure);
 
         if (mouseClick(StartButton, mouseState) == 1) {
             al_clear_to_color(BGCOLOR);
@@ -93,7 +95,7 @@ void printDifficulty(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE
     while(true) {
         // Getting a position of the mouse and creating the events in which to call functions
         al_get_mouse_state(&mouseState);
-        printf("%d %d %0.2f\n", mouseState.x, mouseState.y, mouseState.pressure);
+        //printf("%d %d %0.2f\n", mouseState.x, mouseState.y, mouseState.pressure);
 
         //easy
         if (mouseClick(Easy, mouseState) == 1) {
@@ -117,13 +119,14 @@ void printDifficulty(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE
 }
 
 //function that starts the game when the user presses the start image.
-void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState, char difficulty) {
+void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState, char difficulty){
     double timer = 0;
     int wordNum = 0;
     //double = 60;
-    game.hotbar[30] = {' '};
     bool alive = true;
     Words game;
+    // initializing everything to 0 in the structure
+    memset(&game , 0, sizeof(game));
     int counter = 0;
     FILE *fptr;
     if (difficulty == 'e'){
@@ -137,6 +140,8 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
     getWords(fptr, game, wordNum);
     fclose(fptr);
 
+    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
 
     //number of words
     int wordIndex = 0;
@@ -144,9 +149,17 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
     int lives = 3;
 
     while (alive == true) {
-        al_clear_to_color(BGCOLOR);
+        ALLEGRO_EVENT ev;
+        if(al_get_next_event(event_queue, &ev) && ev.type==ALLEGRO_EVENT_KEY_CHAR){
+            processKeyboardEvent(ev.keyboard, game);
+        }
+        if(checkDamage(font, display, game, lives, wordNum)) {
+            al_clear_to_color(RED);
+            al_flip_display();
+            al_rest(0.1);
+            continue;
+        }
 
-        al_draw_textf(font, TEXTCOLOR, 850, 10, ALLEGRO_ALIGN_CENTRE, "%d", lives);
 
         if (difficulty == 'e' && timer > 7) {
             chooseWord(game, wordNum, wordIndex);
@@ -163,9 +176,12 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
             timer = 0;
         }
 
-        wordLocation(font, display, wordNum, game);
+        al_clear_to_color(BGCOLOR);
+        al_draw_text(font, TEXTCOLOR, MID_SCREEN, 200, ALLEGRO_ALIGN_CENTRE, game.hotbar);
 
-        checkDamage(font, display, game, lives, wordNum);
+        al_draw_textf(font, TEXTCOLOR, 850, 10, ALLEGRO_ALIGN_CENTRE, "%d", lives);
+
+        wordLocation(font, display, wordNum, game);
 
         //printword(game.hotbar);
         //printf("%s", game.hotbar);
@@ -192,6 +208,11 @@ void getWords(FILE *fptr, Words& game, int &count){
         // while this is not the end of the file
         count = 0;
         while(fgets(game.OffscreenWords[count], 30, fptr) != NULL){
+                // remove ending cr/lf chars
+            int n = strlen(game.OffscreenWords[count]);
+            while(n>0 && isspace(game.OffscreenWords[count][n-1])) n--;
+            game.OffscreenWords[count][n] = 0;
+            //printf("%d: %s(%d)\n", count,game.OffscreenWords[count], strlen(game.OffscreenWords[count]));
             //fgets(wordbank[i], 35, fptr);
             //int n = strlen(game.OffscreenWords[count]);
             //while(n>0 && isspace(game.OffscreenWords[count][n-1]))n--;
@@ -204,7 +225,8 @@ void getWords(FILE *fptr, Words& game, int &count){
 
 void wordLocation(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, int wordNum, Words& game) {
     char holder[30];
-    for (int i=0; i<wordNum; i++) {
+    for (int i=0; i<30; i++) {
+            if(game.OnscreenWords[i][0]==0) continue; // valid on screen word?
             //printf("test");
             game.wordY[i] += 1;
             al_draw_text(font, TEXTCOLOR, game.wordX[i], game.wordY[i], ALLEGRO_ALIGN_CENTRE, game.OnscreenWords[i]);
@@ -226,9 +248,9 @@ void chooseWord(Words& game, int wordNum, int &wordIndex) {
     } else if (randPos == 2) {
         pos = 700;
     }
-    int random = rand() % wordNum + 1;
+    int random = rand() % wordNum;
     char holder[30];
-    for (int i = 0; i<wordNum; i++) {
+    for (int i = 0; i<30; i++) {
         strcpy(holder, game.OffscreenWords[random]);
         if ((strcmp(holder, game.OnscreenWords[i])) == 0) {
            i = 0;
@@ -252,14 +274,15 @@ void printDeathScreen() {
   }
 }
 
-void checkDamage(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, Words& game, int &lives, int wordNum) {
-    for (int i=0; i<wordNum; i++) {
-        if (game.wordY[i] == 500) {
+bool checkDamage(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, Words& game, int &lives, int wordNum) {
+    int lives_saved = lives;
+    for (int i=0; i<30; i++) {
+        if (game.OnscreenWords[i][0] && game.wordY[i] >= 500) {
             lives = lives - 1;
-            al_clear_to_color(RED);
-            al_rest(1);
+            game.OnscreenWords[i][0] = 0;
         }
     }
+    return (lives_saved>lives);
 }
 
 // Function that checks if you clicked a button
@@ -359,7 +382,7 @@ al_wait_for_event(event_queue, &ev);
         }
     }
 }*/
-void printword(const ALLEGRO_KEYBOARD_EVENT& ev, int index, Words &game){
+void processKeyboardEvent(const ALLEGRO_KEYBOARD_EVENT& ev, Words &game){
 	char character;
 	if(ev.keycode>=ALLEGRO_KEY_A && ev.keycode<=ALLEGRO_KEY_Z){
         	character = 'a' + (ev.keycode - ALLEGRO_KEY_A);
@@ -374,22 +397,23 @@ void printword(const ALLEGRO_KEYBOARD_EVENT& ev, int index, Words &game){
 }
 	int num = strlen(game.hotbar);
 	if(character == '~'){
-		game.hotbar[num-1] = ' ';
+        if (num > 0) game.hotbar[num-1] = '\0';
 	}else if(character == '`'){
+	    if(num<=0) return;
 		for(int i = 0; i<30; i++){
-			int placeholder = strcmp(game.hotbar,game.OnscreenWords);
-			if(placeholder != 0){
-				continue;
-			}else{
-			    // When we find a match
-				for(int i = 0; i<30;i++){
-				game.hotbar[i] = ' ';
-				}
-
-			}
+            if(game.OnscreenWords[i][0]==0) continue;
+			if(strcasecmp(game.hotbar, game.OnscreenWords[i]) != 0) continue;
+            // When we find a match
+            //printf("found match at %d %s\n", i, game.OnscreenWords[i]);
+            game.OnscreenWords[i][0] = 0;
+			game.hotbar[0] = '\0';
+			break;
 		}
 	}else{
 	game.hotbar[num] = character;
+	game.hotbar[num+1] = '\0';
 	}
 
+	printf("hotbar: %d %c %s\n", num, character, game.hotbar);
 }
+
