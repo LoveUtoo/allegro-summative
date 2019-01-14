@@ -17,6 +17,7 @@ void initializeAllegro(){
     al_init_ttf_addon();
 
     al_install_mouse();
+    al_install_keyboard();
 
 }
 
