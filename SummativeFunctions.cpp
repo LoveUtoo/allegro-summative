@@ -125,10 +125,11 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
     //double = 60;
     bool alive = true;
     Words game;
-    // initializing everything to 0 in the structure
+    // initializing everything in the structure to 0
     memset(&game , 0, sizeof(game));
     int counter = 0;
     FILE *fptr;
+	// Choosing the 3 difficulties and which text file to read in
     if (difficulty == 'e'){
         fptr = fopen("WordBankEasy.txt", "r");
     }else if (difficulty == 'm') {
@@ -139,7 +140,7 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
 
     getWords(fptr, game, wordNum);
     fclose(fptr);
-
+	// Getting an event queue for the keyboard inputs
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
@@ -147,20 +148,21 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
     int wordIndex = 0;
     //lives
     int lives = 3;
-
+	// It checks if there is an event in the event queue, and if the event type is a key char event type
     while (alive == true) {
         ALLEGRO_EVENT ev;
         if(al_get_next_event(event_queue, &ev) && ev.type==ALLEGRO_EVENT_KEY_CHAR){
             processKeyboardEvent(ev.keyboard, game);
         }
+	    // If the user takes damage, the screen goes red for 0.1 seconds
         if(checkDamage(font, display, game, lives, wordNum)) {
             al_clear_to_color(RED);
             al_flip_display();
             al_rest(0.1);
             continue;
         }
-
-
+	
+	// For easy difficulty, a word spawns every 7 seconds, 5 for medium, and 3 for hard. 
         if (difficulty == 'e' && timer > 7) {
             chooseWord(game, wordNum, wordIndex);
             timer = 0;
@@ -185,12 +187,12 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
 
         //printword(game.hotbar);
         //printf("%s", game.hotbar);
-
+	// setting the fps
         al_flip_display();
         timer += (1 / fps);
         al_rest(1 / fps);
     }
-/*
+/* if we get the images we requested.
     ALLEGRO_BITMAP *ship = al_load_bitmap("shipPlaceholder.png");
     ALLEGRO_BITMAP *gun = al_load_bitmap("cannonPlaceholder.png");
     al_convert_mask_to_alpha(ship, WHITE);
@@ -222,7 +224,7 @@ void getWords(FILE *fptr, Words& game, int &count){
         }
     //}
 }
-
+// scans the status of the onScreenwords and makes them move down by changing the Y axis value.
 void wordLocation(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, int wordNum, Words& game) {
     char holder[30];
     for (int i=0; i<30; i++) {
@@ -238,6 +240,7 @@ void chooseWord(Words& game, int wordNum, int &wordIndex) {
         wordIndex = 0;
     }
     srand(time(NULL));
+// Making the positions go in 3 random columns
     int pos = 0;
     int randPos = rand() % 3;
     if (randPos == 0) {
@@ -249,6 +252,7 @@ void chooseWord(Words& game, int wordNum, int &wordIndex) {
     }
     int random = rand() % wordNum;
     char holder[30];
+	// this loop loops everytime we run into a word we already used.
     for (int i = 0; i<30; i++) {
         strcpy(holder, game.OffscreenWords[random]);
         if ((strcmp(holder, game.OnscreenWords[i])) == 0) {
