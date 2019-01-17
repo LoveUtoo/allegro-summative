@@ -387,3 +387,19 @@ void processKeyboardEvent(const ALLEGRO_KEYBOARD_EVENT& ev, Words &game, int &sc
 	//printf("hotbar: %d %c %s\n", num, character, game.hotbar);
 }
 
+void loadhighscore(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display){
+    al_clear_to_color(BGCOLOR);
+    al_flip_display();
+
+    int highscorenum[10];
+    char highscorename[10][30];
+    FILE *fptr;
+    fptr = fopen("highscore.txt", "r");
+    for(int i = 0; i<10; i++){
+        fscanf(fptr, "%s", highscorename[i]);
+        fscanf(fptr, "%d", highscorenum[i]);
+        al_draw_text(font, TEXTCOLOR, 250, 70 + i*50, ALLEGRO_ALIGN_CENTRE, highscorename[i]);
+        al_draw_text(font, TEXTCOLOR, 265, 70 + i*50, ALLEGRO_ALIGN_CENTRE, highscorenum[i]);
+    }
+}
+
