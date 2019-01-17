@@ -48,13 +48,11 @@ struct imgData {
 };
 
 //general functions
-void processKeyboardEvent (const ALLEGRO_KEYBOARD_EVENT& ev, Words &game);
+void processKeyboardEvent (const ALLEGRO_KEYBOARD_EVENT& ev, Words &game, int &score, int x, ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState);
 void printDifficulty(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState);
 int checkSetup(ALLEGRO_DISPLAY *display, ALLEGRO_FONT *font);
 void initializeAllegro();
-void checkDeath();
-int checkRight();
-void printDeathscreen();
+void printDeath(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState, int score, Words& game, ALLEGRO_EVENT_QUEUE *event_queue);
 void generateWord();
 void getWords(FILE *fptr, Words& game, int &wordCount);
 void deleteWord();
@@ -67,3 +65,5 @@ int mouseClick(imgData& a, ALLEGRO_MOUSE_STATE& mouseState);
 void chooseWord(Words& game, int wordNum, int &wordIndex);
 void wordLocation(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, int wordNum, Words& game);
 bool checkDamage(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, Words& game, int &lives, int wordNum);
+int checkFile(FILE* fptr);
+void highscore(int score, Words& game);
