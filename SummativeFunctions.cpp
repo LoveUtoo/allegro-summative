@@ -16,6 +16,7 @@ char printedcharacters[30];
 
 //functions that displays title screen
 void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState) {
+
     ALLEGRO_BITMAP *startButton = al_load_bitmap("startButton.png");
 // The position that the start button is located
 	imgData StartButton;
@@ -36,6 +37,18 @@ void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUS
 	HighScore.right = 640 ;
 	HighScore.top = 275 ;
 	HighScore.bot = 290 ;
+//the position of the How to play button
+	imgData HTP;
+    HTP.left = 290 ;
+	HTP.right = 610 ;
+	HTP.top = 410 ;
+	HTP.bot = 425;
+//the position of the credits button
+	imgData Credits;
+    Credits.left = 350 ;
+	Credits.right = 550 ;
+	Credits.top = 440 ;
+	Credits.bot = 455 ;
 // if the start button doesn't load
     if (!startButton) {
     	al_show_native_message_box(display, "Error", "Error", "Failed to load start button image.",
@@ -47,13 +60,14 @@ void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUS
     al_draw_bitmap(startButton, 275, 25, 0);
     al_draw_text(font, TEXTCOLOR, MID_SCREEN, 265, ALLEGRO_ALIGN_CENTRE, "LEADERBOARDS");
     al_draw_text(font, TEXTCOLOR, MID_SCREEN, 295, ALLEGRO_ALIGN_CENTRE, "QUIT");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 400, ALLEGRO_ALIGN_CENTRE, "HOW TO PLAY");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 430, ALLEGRO_ALIGN_CENTRE, "CREDITS");
 
     al_flip_display();
 
     while(true) {
         // Getting a position of the mouse and creating the events in which to call functions
         al_get_mouse_state(&mouseState);
-        printf("%d %d %0.2f\n", mouseState.x, mouseState.y, mouseState.pressure);
 
         if (mouseClick(StartButton, mouseState) == 1) {
             al_clear_to_color(BGCOLOR);
@@ -65,12 +79,120 @@ void printTitleScreen(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUS
             al_destroy_display(display);
             break; // quit game
         }else if (mouseClick(HighScore, mouseState) == 1) {
-            printf("test");
+            loadhighscore(font, display, mouseState);
+        }else if (mouseClick(HTP, mouseState) == 1) {
+            printHTP(font, display, mouseState);
+        }else if (mouseClick(Credits, mouseState) == 1) {
+            printCredits(font, display, mouseState);
         }
 
         al_rest(1 / fps);
     }
 
+}
+
+//function that loads highscore screen
+void loadhighscore(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState){
+    al_clear_to_color(BGCOLOR);
+    al_flip_display();
+
+    imgData QuitButton;
+	QuitButton.left = 400 ;
+    QuitButton.right = 500 ;
+    QuitButton.top = 355 ;
+    QuitButton.bot = 380 ;
+
+    int highscorenum[10];
+    char highscorename[10][30];
+    int num = 0;
+
+    FILE *fptr;
+    fptr = fopen("highscore.txt", "r");
+
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 350, ALLEGRO_ALIGN_CENTRE, "QUIT");
+
+    while (fscanf(fptr, "%s", highscorename[num]) != EOF) {
+        fscanf(fptr, "%d", &highscorenum[num]);
+        //al_draw_text(font, TEXTCOLOR, 250, 70 + num*50, ALLEGRO_ALIGN_CENTRE, highscorename[num]);
+        //al_draw_textf(font, TEXTCOLOR, 450, 70 + num*50, ALLEGRO_ALIGN_CENTRE, "%d", highscorenum[num]);
+        num++;
+    }
+
+    while (true) {
+        al_get_mouse_state(&mouseState);
+
+        if (mouseClick(QuitButton, mouseState) == 1){
+            al_clear_to_color(BGCOLOR);
+            al_flip_display();
+            printTitleScreen(font, display, mouseState);
+            break; // quit game
+        }
+        al_flip_display();
+        al_rest(1 / fps);
+    }
+
+}
+
+//function that shows how to play screen
+void printHTP(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState) {
+    al_clear_to_color(BGCOLOR);
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 100, ALLEGRO_ALIGN_CENTRE, "Words will fall from space");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 130, ALLEGRO_ALIGN_CENTRE, "Type them out to destroy them");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 160, ALLEGRO_ALIGN_CENTRE, "If you don't you lose a life");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 190, ALLEGRO_ALIGN_CENTRE, "If you lose 3 lives you die");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 350, ALLEGRO_ALIGN_CENTRE, "QUIT");
+    al_flip_display();
+
+    imgData QuitButton;
+	QuitButton.left = 400 ;
+    QuitButton.right = 500 ;
+    QuitButton.top = 355 ;
+    QuitButton.bot = 380 ;
+    //checking for mouse input loop
+    while (true) {
+        al_get_mouse_state(&mouseState);
+
+        if (mouseClick(QuitButton, mouseState) == 1){
+            al_clear_to_color(BGCOLOR);
+            al_flip_display();
+            printTitleScreen(font, display, mouseState);
+            break; // quit game
+        }
+        al_flip_display();
+        al_rest(1 / fps);
+    }
+}
+
+//function that prints credit screen
+void printCredits(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState)  {
+    al_clear_to_color(BGCOLOR);
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 100, ALLEGRO_ALIGN_CENTRE, "Devs:");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 130, ALLEGRO_ALIGN_CENTRE, "Nicolas Coballe and Allan Cao");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 170, ALLEGRO_ALIGN_CENTRE, "Real OG Gangster:");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 200, ALLEGRO_ALIGN_CENTRE, "Ms Cullum");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 240, ALLEGRO_ALIGN_CENTRE, "Testers:");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 270, ALLEGRO_ALIGN_CENTRE, "Blake Stanley + Simon Marcotte");
+    al_draw_text(font, TEXTCOLOR, MID_SCREEN, 350, ALLEGRO_ALIGN_CENTRE, "QUIT");
+    al_flip_display();
+
+    imgData QuitButton;
+	QuitButton.left = 400 ;
+    QuitButton.right = 500 ;
+    QuitButton.top = 355 ;
+    QuitButton.bot = 380 ;
+    //checking for mouse input loop
+    while (true) {
+        al_get_mouse_state(&mouseState);
+
+        if (mouseClick(QuitButton, mouseState) == 1){
+            al_clear_to_color(BGCOLOR);
+            al_flip_display();
+            printTitleScreen(font, display, mouseState);
+            break; // quit game
+        }
+        al_flip_display();
+        al_rest(1 / fps);
+    }
 }
 
 //function that prints the choose difficulty screen
@@ -81,7 +203,7 @@ void printDifficulty(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE
     al_draw_text(font, TEXTCOLOR, MID_SCREEN, 325, ALLEGRO_ALIGN_CENTRE, "Hard");
     al_flip_display();
 
-// prints the buttons for diffculties
+    //initializes structs
     imgData Easy;
     Easy.left = 385;
     Easy.right = 515;
@@ -129,14 +251,17 @@ void printDifficulty(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE
 
 //function that starts the game when the user presses the start image.
 void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState, char difficulty){
+    //initializing variables
     double timer = 0;
     int wordNum = 0;
-    //double = 60;
     bool alive = true;
     Words game;
+    int counter = 0;
+
     // initializing everything to 0 in the structure
     memset(&game , 0, sizeof(game));
-    int counter = 0;
+
+    //reading in words
     FILE *fptr;
     if (difficulty == 'e'){
         fptr = fopen("WordBankEasy.txt", "r");
@@ -148,7 +273,8 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
 
     getWords(fptr, game, wordNum);
     fclose(fptr);
-	// registering the keyboard
+
+    //allowing function to read in keyboard and mouse
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
@@ -157,8 +283,11 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
     //lives
     int lives = 3;
     int score = 0;
-// The main loop which most of the game runs in
+    srand(time(0));
+
+    //loop the game is running in to make animation
     while (alive == true) {
+
         ALLEGRO_EVENT ev;
         if(al_get_next_event(event_queue, &ev) && ev.type==ALLEGRO_EVENT_KEY_CHAR){
             processKeyboardEvent(ev.keyboard, game, score, 0, font, display, mouseState);
@@ -170,7 +299,8 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
             continue;
         }
 
-// How frequent a word spawns in depending on the difficulty
+
+        //creates words based off difficulty
         if (difficulty == 'e' && timer > 7) {
             chooseWord(game, wordNum, wordIndex);
             timer = 0;
@@ -186,6 +316,7 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
             timer = 0;
         }
 
+        //drawings all the updated text
         al_clear_to_color(BGCOLOR);
         al_draw_text(font, TEXTCOLOR, MID_SCREEN, 200, ALLEGRO_ALIGN_CENTRE, game.hotbar);
 
@@ -195,6 +326,7 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
 
         wordLocation(font, display, wordNum, game);
 
+        //checks for death based on if lives are zero
         if (lives == 0) {
             al_clear_to_color(BGCOLOR);
             al_flip_display();
@@ -205,6 +337,7 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
         timer += (1 / fps);
         al_rest(1 / fps);
     }
+    //unused code for images
 /*
     ALLEGRO_BITMAP *ship = al_load_bitmap("shipPlaceholder.png");
     ALLEGRO_BITMAP *gun = al_load_bitmap("cannonPlaceholder.png");
@@ -249,11 +382,11 @@ void wordLocation(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, int wordNum, Wor
 
 // Chooses the words that the user needs to type
 void chooseWord(Words& game, int wordNum, int &wordIndex) {
+
     if (wordIndex >= 30) {
         wordIndex = 0;
     }
-    srand(time(NULL));
-	// We can place our words in 3 columns depending on what the random number is
+
     int pos = 0;
     int randPos = rand() % 3;
     if (randPos == 0) {
@@ -265,7 +398,6 @@ void chooseWord(Words& game, int wordNum, int &wordIndex) {
     }
     int random = rand() % wordNum;
     char holder[30];
-	// To make sure no words are on screen at the same time. 
     for (int i = 0; i<30; i++) {
         strcpy(holder, game.OffscreenWords[random]);
         if ((strcmp(holder, game.OnscreenWords[i])) == 0) {
@@ -282,8 +414,9 @@ void chooseWord(Words& game, int wordNum, int &wordIndex) {
     game.wordX[wordIndex] = pos;
     wordIndex++;
 }
-// This function determines the display after the game is lost
+
 void printDeath(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState, int score, Words& game, ALLEGRO_EVENT_QUEUE *event_queue) {
+    //reseting hotbar to NULL
     game.hotbar[0] = '\0';
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
@@ -293,6 +426,7 @@ void printDeath(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STAT
     QuitButton.top = 355 ;
     QuitButton.bot = 380 ;
 
+    //loop that looks for keyboard and mouse inputs
     while (true) {
 
         al_get_mouse_state(&mouseState);
@@ -304,12 +438,14 @@ void printDeath(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STAT
 
         al_clear_to_color(BGCOLOR);
 
+        //redrawing updated text
         al_draw_text(font, TEXTCOLOR, MID_SCREEN, 100, ALLEGRO_ALIGN_CENTER, "Name:");
         al_draw_text(font, TEXTCOLOR, MID_SCREEN, 250, ALLEGRO_ALIGN_CENTER, "You died");
         al_draw_textf(font, TEXTCOLOR, MID_SCREEN, 300, ALLEGRO_ALIGN_CENTER, "Score: %d", score);
         al_draw_text(font, TEXTCOLOR, MID_SCREEN, 350, ALLEGRO_ALIGN_CENTER, "Quit");
         al_draw_text(font, TEXTCOLOR, MID_SCREEN, 150, ALLEGRO_ALIGN_CENTRE, game.hotbar);
 
+        //checking for quit button detection
         if (mouseClick(QuitButton, mouseState) == 1){
             al_clear_to_color(BGCOLOR);
             al_flip_display();
@@ -342,7 +478,8 @@ int mouseClick(imgData& a, ALLEGRO_MOUSE_STATE& mouseState){
         return 0;
     //}
 }
-// The functions that runs the highscore
+
+//function that prints highscore to text file
 void highscore(int score, Words& game) {
     FILE *fptr;
     fptr = fopen("highscore.txt", "a");
@@ -356,8 +493,9 @@ void highscore(int score, Words& game) {
 void processKeyboardEvent(const ALLEGRO_KEYBOARD_EVENT& ev, Words &game, int &score, int x, ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState) {
 	char character;
 	if(ev.keycode>=ALLEGRO_KEY_A && ev.keycode<=ALLEGRO_KEY_Z){
-        	character = 'a' + (ev.keycode - ALLEGRO_KEY_A);
-         	}
+        character = 'a' + (ev.keycode - ALLEGRO_KEY_A);
+    }
+    //special characters
 	else if(ev.keycode == ALLEGRO_KEY_SPACE){
 		character = ' ';
       	}else if(ev.keycode == ALLEGRO_KEY_BACKSPACE) {
@@ -365,15 +503,15 @@ void processKeyboardEvent(const ALLEGRO_KEYBOARD_EVENT& ev, Words &game, int &sc
 	}else if(ev.keycode == ALLEGRO_KEY_ENTER) {
         	character = '`';
 	}else{
-}
+    }
 	int num = strlen(game.hotbar);
 	if(character == '~'){
         if (num > 0) game.hotbar[num-1] = '\0';
 	}else if(character == '`'){
 	    if(num<=0) return;
 		for(int i = 0; i<30; i++){
-			// to check if we're typing in the high score name or a word in the game
             if (x == 1) {
+                //checking for either enter means enter word or input name
                 highscore(score, game);
                 al_clear_to_color(BGCOLOR);
                 printTitleScreen(font, display, mouseState);
@@ -393,6 +531,4 @@ void processKeyboardEvent(const ALLEGRO_KEYBOARD_EVENT& ev, Words &game, int &sc
 	game.hotbar[num+1] = '\0';
 	}
 
-	//printf("hotbar: %d %c %s\n", num, character, game.hotbar);
 }
-
