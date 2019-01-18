@@ -81,7 +81,7 @@ void printDifficulty(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE
     al_draw_text(font, TEXTCOLOR, MID_SCREEN, 325, ALLEGRO_ALIGN_CENTRE, "Hard");
     al_flip_display();
 
-
+// prints the buttons for diffculties
     imgData Easy;
     Easy.left = 385;
     Easy.right = 515;
@@ -148,7 +148,7 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
 
     getWords(fptr, game, wordNum);
     fclose(fptr);
-
+	// registering the keyboard
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
@@ -157,7 +157,7 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
     //lives
     int lives = 3;
     int score = 0;
-
+// The main loop which most of the game runs in
     while (alive == true) {
         ALLEGRO_EVENT ev;
         if(al_get_next_event(event_queue, &ev) && ev.type==ALLEGRO_EVENT_KEY_CHAR){
@@ -170,8 +170,8 @@ void startGame(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE
             continue;
         }
 
-
-        if (difficulty == 'e' && timer > 1) {
+// How frequent a word spawns in depending on the difficulty
+        if (difficulty == 'e' && timer > 7) {
             chooseWord(game, wordNum, wordIndex);
             timer = 0;
         }
@@ -253,6 +253,7 @@ void chooseWord(Words& game, int wordNum, int &wordIndex) {
         wordIndex = 0;
     }
     srand(time(NULL));
+	// We can place our words in 3 columns depending on what the random number is
     int pos = 0;
     int randPos = rand() % 3;
     if (randPos == 0) {
@@ -264,6 +265,7 @@ void chooseWord(Words& game, int wordNum, int &wordIndex) {
     }
     int random = rand() % wordNum;
     char holder[30];
+	// To make sure no words are on screen at the same time. 
     for (int i = 0; i<30; i++) {
         strcpy(holder, game.OffscreenWords[random]);
         if ((strcmp(holder, game.OnscreenWords[i])) == 0) {
@@ -280,7 +282,7 @@ void chooseWord(Words& game, int wordNum, int &wordIndex) {
     game.wordX[wordIndex] = pos;
     wordIndex++;
 }
-
+// This function determines the display after the game is lost
 void printDeath(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState, int score, Words& game, ALLEGRO_EVENT_QUEUE *event_queue) {
     game.hotbar[0] = '\0';
     al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -340,7 +342,7 @@ int mouseClick(imgData& a, ALLEGRO_MOUSE_STATE& mouseState){
         return 0;
     //}
 }
-
+// The functions that runs the highscore
 void highscore(int score, Words& game) {
     FILE *fptr;
     fptr = fopen("highscore.txt", "a");
@@ -370,6 +372,7 @@ void processKeyboardEvent(const ALLEGRO_KEYBOARD_EVENT& ev, Words &game, int &sc
 	}else if(character == '`'){
 	    if(num<=0) return;
 		for(int i = 0; i<30; i++){
+			// to check if we're typing in the high score name or a word in the game
             if (x == 1) {
                 highscore(score, game);
                 al_clear_to_color(BGCOLOR);
@@ -379,7 +382,6 @@ void processKeyboardEvent(const ALLEGRO_KEYBOARD_EVENT& ev, Words &game, int &sc
                 if(game.OnscreenWords[i][0]==0) continue;
                 if(strcasecmp(game.hotbar, game.OnscreenWords[i]) != 0) continue;
                 // When we find a match
-                //printf("found match at %d %s\n", i, game.OnscreenWords[i]);
                 score += strlen(game.OnscreenWords[i]) * 100;
                 game.OnscreenWords[i][0] = 0;
                 game.hotbar[0] = '\0';
