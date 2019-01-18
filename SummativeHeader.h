@@ -67,3 +67,6 @@ void wordLocation(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, int wordNum, Wor
 bool checkDamage(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, Words& game, int &lives, int wordNum);
 int checkFile(FILE* fptr);
 void highscore(int score, Words& game);
+void printHTP(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState);
+void printCredits(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_STATE& mouseState);
+void loadhighscore(ALLEGRO_FONT *font, ALLEGRO_DISPLAY *display,  ALLEGRO_MOUSE_STATE& mouseState);
