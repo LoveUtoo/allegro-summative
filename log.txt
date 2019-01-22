@@ -1,1 +1,29 @@
-Day one: Started our project by discussing our concept and specifically how might we implement the five functions, structures, etc. 
+Day one: Started our project by discussing our concept and specifically how might we implement the five functions, structures, etc.
+Day Two: We more or less have an idea on what we're going to be doing, and are going to have Ms Cullum to look at our proposal
+Day three: Our proposal has been approved, and we have started by planning details
+Day Four: We have created our github, and created all of our .cpp files, as well as the cbp file.
+Day Five: We searched for all the words in the varying difficulties, created the text files, and also started on some basic initialisations
+Day Six: We created all of our function prototypes and variables that we think we're going to use, but we can add more later on
+Day Seven: We started on the basic allegro things as well as coding some of the important functions. We started on getWords.
+Day eight: We continued to work on the getWords function as well as reading up on more allegro functions that we can use
+Day nine: We more or less finished the getWords function and started on other things, while we also started to create the interface
+Day Ten: We Started on the chooseWords function and found a startButton image that we can use for our game
+Day Eleven: We started on doing our mouse XY corrdinates as well as nearly finishing the chooseWords function
+Day Twelve: We found a way for our code to be able to detect clicks on the image and flip the display afterwards
+Day Thirteen: We started on our startGame function that includes some of the current functions we have right now
+Day Fourteen: We found that our code could not run together, so we tried debugging it
+Day Fifteen: Debugging day
+Day Sixteen: Debugging day
+Day Seventeen: Debugging day
+Day eighteen: Finished debugging and finally went on to other things to do
+Day Nineteen: We tried to find a way to make keyboard input directly on allegro
+Day Twenty: Still can't print to the interface, so we focused on other things in the meantime like smaller, less important functions while we do mroe reaserch at home on how to print characters to the screen
+Day twenty One: We managed to make the display after the startButton also have three buttons, which are the difficulty buttons
+Day Twenty Two: We finally found a way to input characters to the allegro screen, by using keycodes 
+Day Twenty Three: We also found a way for space, backspace, and check answer to work
+Day Twenty Four: Our code stil has some bugs when it's run together, so we spent most of the time debugging
+Day Twenty Five: We finished debugging and started working on making the words scroll down the screen.
+Day twenty Six: We tried to add a lives variable and a checkDamage function, but we had a huge problem as the screen would turn completely red and then crash instead of simply blinking red when the word passes x=500
+Day Twenty Seven: We found that 
+
+
