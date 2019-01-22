@@ -1,0 +1,1 @@
+Day one: Started our project by discussing our concept and specifically how might we implement the five functions, structures, etc. 
