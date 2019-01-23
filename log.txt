@@ -24,6 +24,13 @@ Day Twenty Three: We also found a way for space, backspace, and check answer to 
 Day Twenty Four: Our code stil has some bugs when it's run together, so we spent most of the time debugging
 Day Twenty Five: We finished debugging and started working on making the words scroll down the screen.
 Day twenty Six: We tried to add a lives variable and a checkDamage function, but we had a huge problem as the screen would turn completely red and then crash instead of simply blinking red when the word passes x=500
-Day Twenty Seven: We found that 
+Day Twenty Seven: Debugging
+Day Twenty Eight: Debugging
+Day Twenty Nine: We realized that we didn't delete the word after it fell below x=500, so it was just constantly flashing red
+Day Thirty: Testing Day
+Day Thirty one: We got the quit button, and how to play button working. We also started on the highscore functions
+Day Thirty two: We can now let users type in a name, and it prints to a text file
+Day Thirty three: We can now display the leaderboard after clicking on a leaderboard button
+Day Thirty Four: We tried to finish sorting the leaderboard by order, but we ran out of time.
 
 
